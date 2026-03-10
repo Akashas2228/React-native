@@ -24,6 +24,7 @@ export default function LoginScreen({}: Props) {
     Alert.alert('Error', 'Enter username and password');
     return;
   }
+  // navigation.navigate('MainApp')
 
   dispatch(login(username)); // save to redux
 };

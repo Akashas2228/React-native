@@ -8,21 +8,17 @@ import {
   ScrollView,
 } from 'react-native';
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
+interface User {[key: string]: any}
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }: any) {
   const [loading, setLoading] = useState<boolean>(false);
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User []>([]);
   const [error, setError] = useState<string | null>(null);
 
   // Dummy API call
   const fetchUsers = async () => {
     try {
-      setLoading(true);
+      setLoading(true);``
       setError(null);
 
       const response = await fetch(
@@ -56,17 +52,19 @@ export default function HomeScreen() {
 
       {/* Error */}
       {error && <Text style={styles.error}>{error}</Text>}
-
+<TouchableOpacity onPress={()=> navigation.navigate("MapScreen")} style={[styles.button, {marginBottom:0}]}>
+          <Text style={styles.buttonText}>Go to Map</Text>
+        </TouchableOpacity>
       {/* Result */}
       {users.length > 0 && (
         <View style={styles.resultContainer}>
           <Text style={styles.resultTitle}>Users List:</Text>
 
           {users.map(user => (
-            <View key={user.id} style={styles.userCard}>
+            <TouchableOpacity onPress={()=> navigation.navigate("DetailsShowScreen", {user})} key={user.id} style={styles.userCard}>
               <Text style={styles.userName}>{user.name}</Text>
               <Text>{user.email}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       )}

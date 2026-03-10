@@ -2,11 +2,12 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from '@react-native-vector-icons/ionicons';
 
-import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import { BottomTabParamList } from '../types/navigation';
+import { HomeStackScreen } from './RootStackScreen';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const getTabIcon = (routeName: string, color: string, size: number) => {
   let iconName:string = 'home';
@@ -15,7 +16,7 @@ const getTabIcon = (routeName: string, color: string, size: number) => {
   if (routeName === 'Profile') iconName = 'person';
   if (routeName === 'Settings') iconName = 'settings';
 
-  return <Ionicons name={iconName} size={size} color={color} />;
+  return <Ionicons name={iconName as any} size={size} color={color} />;
 };
 
 const BottomTabs = () => {
@@ -26,7 +27,7 @@ const BottomTabs = () => {
         tabBarIcon: ({color, size}) =>
           getTabIcon(route.name, color, size),
       })}>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeStackScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>

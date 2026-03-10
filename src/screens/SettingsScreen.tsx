@@ -1,3 +1,4 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, {useState} from 'react';
 import {
   View,
@@ -8,10 +9,16 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import { logout } from '../features/auth/authSlice';
+import { RootStackParamList } from '../types/navigation';
 import { useDispatch } from 'react-redux';
+import { logout } from '../features/auth/authSlice';
+// import { logout } from '../features/auth/authSlice';
+// import { useDispatch } from 'react-redux';
+type Props = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Settings'>;
+};
 
-const SettingsScreen: React.FC = () => {
+const SettingsScreen: React.FC<Props> = ({}) => {
   const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const dispatch = useDispatch()
@@ -21,7 +28,7 @@ const SettingsScreen: React.FC = () => {
   };
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout())
   };
 
   return (
